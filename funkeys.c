@@ -179,7 +179,7 @@ void change_led_light(const char *max_brightness_file, const char *brightness_fi
     }
     else
     {
-        write_int_to_file(brightness_file, max);
+        write_int_to_file(brightness_file, current_backlight + 1);
     }
 }
 

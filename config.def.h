@@ -1,12 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "Liberation Mono:pixelsize=16:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Liberation Mono:pixelsize=16:antialias=true:autohint=true";
+static const char *fonts[]          = { "Ubuntu Nerd Mono:pixelsize=16:antialias=true:autohint=true","Symbols Font Nerd Mono:pixelsize=16:antialias=true:autohint=true" };
+static const char dmenufont[]       = "Ubuntu Nerd Mono:pixelsize=16:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -63,6 +65,7 @@ static const char *termcmd[]  = { "st", NULL };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                   XF86XK_Search, spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -95,6 +98,13 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    { 0, XF86XK_AudioLowerVolume, vol_down, {0} },
+    { 0, XF86XK_AudioRaiseVolume, vol_up, {0} },
+    { 0, XF86XK_AudioMute, toggle_vol_mute, {0} },
+    { 0, XF86XK_MonBrightnessUp, change_backlight, {.i = +1} },
+    { 0, XF86XK_MonBrightnessDown, change_backlight, {.i = -1} },
+    { 0, XF86XK_LaunchA, change_kbd_backlight, {0} },
 };
 
 /* button definitions */

@@ -16,6 +16,13 @@
 #define GET_VOL_CMD "wpctl get-volume @DEFAULT_AUDIO_SINK@"
 #define SET_VOL_CMD_FMT "wpctl set-volume @DEFAULT_AUDIO_SINK@ %f"
 
+typedef union {
+    int i;
+    unsigned int ui;
+    float f;
+    const void *v;
+} Arg;
+
 float get_volume()
 {
     FILE *file;
@@ -149,8 +156,9 @@ int step_to_backlight(int step, int min, int max, int steps)
 /// then adds the delta to the step and converts it back to a backlight value
 /// inspired by https://konradstrack.ninja/blog/changing-screen-brightness-in-accordance-with-human-perception/
 /// @param d the delta to add to the current backlight value
-void change_backlight(int d)
+void change_backlight(const Arg* arg)
 {
+    int d = arg->i;
     int min = 2;
     int max = read_int_from_file(MAX_BRIGHTNESS_FILE);
     int steps = 20;
